@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<br>
+    <div class="container">
+    <h4>My watched threads</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+        <tr>
+            <th>Thread Title</th>
+            <th>Link</th>
+            <th>Date Added</th>
+            <th>Last checked</th>
+            <th>Frequency</th>
+            <th>Delete?</th>
+        </tr>
+        {% for thread in thread_list %}
+        <tr>
+            <td> {{ thread.title}}</td>
+            <td> <a href="http://reddit.com{{ thread.url}}">[Link]</a></td>
+            <td> {{ thread.submitted_date}}</td>
+            <td> {{thread.last_checked_date}}</td>
+            <td>
+            {% if thread.watch_interval == 1 %}
+            hourly
+            {% elif thread.watch_interval == 24 %}
+            daily
+            {% else %}
+            weekly
+            {% endif %}
+            </td>
+            <td> <a href="{% url 'deletethread' thread.pk %}" class="btn btn-danger btn-sm">Stop Watching <span class="glyphicon glyphicon-remove-sign"></span></td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+<br>
+    <h4>My watched subreddits</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+        <tr>
+            <th>Subreddit</th>
+            <th>Link</th>
+            <th>Date Added</th>
+            <th>Last checked</th>
+            <th>Frequency</th>
+            <th>Delete?</th>
+        </tr>
+{% for subreddit in subreddit_list %}
+        <tr>
+            <td> {{ subreddit.name}}</td>
+            <td> <a href="http://reddit.com/r/{{ subreddit.name }}">[Link]</a></td>
+            <td> {{ subreddit.submitted_date}} </td>
+            <td> {{subreddit.last_checked_date}}</td>
+            <td>
+            {% if subreddit.watch_interval == 1 %}
+            hourly
+            {% elif subreddit.watch_interval == 24 %}
+            daily
+            {% else %}
+            weekly
+            {% endif %}
+            </td>
+            <td> <a href="{% url 'deletesubreddit' subreddit.pk %}" class="btn btn-danger btn-sm">Stop Watching <span class="glyphicon glyphicon-remove-sign"></span></td>
+        </tr>
+        {% endfor %}
+        </table>
+      </div>
+<br>
+        <h4>My watched users</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+        <tr>
+            <th>User</th>
+            <th>Link</th>
+            <th>Date Added</th>
+            <th>Last checked</th>
+            <th>Frequency</th>
+            <th>Delete?</th>
+        </tr>
+        {% for user in user_list %}
+        <tr>
+            <td> {{ user.watched_username }}</td>
+            <td> <a href="http://reddit.com/u/{{ user.watched_username }}">[Link]</a></td>
+            <td> {{ user.submitted_date}}</td>
+            <td> {{ user.last_checked_date}}</td>
+            <td>
+            {% if user.watch_interval == 1 %}
+            hourly
+            {% elif user.watch_interval == 24 %}
+            daily
+            {% else %}
+            weekly
+            {% endif %}
+            </td>
+            <td> <a href="{% url 'deleteuser' user.pk %}" class="btn btn-danger btn-sm">Stop Watching <span class="glyphicon glyphicon-remove-sign"></span></td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+    </div>
+<br>
+<br>
+<br>
+{% endblock content %}

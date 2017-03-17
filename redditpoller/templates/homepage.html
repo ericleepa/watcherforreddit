@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <br>
+    <br>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Watcher for reddit</h1>
+            <p>Watch threads, subreddits, or reddit users and get notified about new threads and comments</p>
+            <a href="/signin/" type="button" class="btn btn-default btn-lg">
+                <span class="btn-label"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></span>&nbsp;Sign in with your reddit account</a>
+        </div>
+        <p> Watcher for reddit is a simple web app that checks for changes in reddit threads, subreddits,
+        and users (comments and submissions). Enter the url of the thread, or the name of the subreddit/user that you
+        would like to watch and get notified to your reddit inbox if something changes.
+        <p> Watcher was built using Django and PRAW</p>
+    </div>
+{% endblock content %}

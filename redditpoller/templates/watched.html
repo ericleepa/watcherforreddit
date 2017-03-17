@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <br>
+    <br>
+    <div class="container">
+        <h4>{{success_text}}</h4>
+        <br>
+        <br>
+        <br>
+        <div class="btn-group btn-group-justified">
+        <a href="/watchthread/" class="btn btn-default">Watch a thread</a>
+        <a href="/watchsubreddit/" class="btn btn-default">Watch a subreddit</a>
+        <a href="/watchuser/" class="btn btn-default">Watch a user </a>
+    </div>
+    </div>
+    <br>
+    <div class="container">
+
+    <a href="/mywatched/" class="btn btn-default  btn-block">My watched list</a>
+    </div>
+{% endblock content %}

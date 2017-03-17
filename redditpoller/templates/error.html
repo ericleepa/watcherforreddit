@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<br>
+<div class="container">
+<h4>Sorry! Something went wrong:</h4>
+{{error}}
+<br>
+<br>
+    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary btn-lg">Go Back</a>
+</div>
+{% endblock content %}
