@@ -3,7 +3,6 @@ import prawcore
 
 
 r = praw.Reddit('bot1', user_agent='python script v0.5 (by /u/ericleepa)')
-a = praw.Reddit('bot2', user_agent='django web authentication app v0.5 (by /u/ericleepa)')
 
 
 def get_reddit_thread(reddit_url):
@@ -43,11 +42,13 @@ def get_subreddit_threads(subreddit_name, fetch_amount):
 
 
 def authorize_reddit_account(state):
+    a = praw.Reddit('bot2', user_agent='django web authentication app v0.5 (by /u/ericleepa)')
     url = a.auth.url(['identity'], state, duration='temporary')
     return url
 
 
 def reddit_code_to_username(code):
+    a = praw.Reddit('bot2', user_agent='django web authentication app v0.5 (by /u/ericleepa)')
     a.auth.authorize(code)
     return a.user.me().name
 
