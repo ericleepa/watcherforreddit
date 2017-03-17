@@ -89,7 +89,7 @@ def watched_thread(request):
                     return render(request, 'error.html', {'error': 'Each account can only have up to ten watched '
                                                                    'threads'})
                 praw_thread = get_reddit_thread(reddit_url)
-                if WatchedThread.objects.filter(url=praw_thread.permalink).exists():
+                if WatchedThread.objects.filter(user=request.user, url=praw_thread.permalink).exists():
                     return render(request, 'error.html', {'error': 'You are already watching this thread'})
                 if praw_thread.num_comments > 500:
                     return render(request, 'error.html', {'error': 'This tool can only track threads with less'
@@ -134,7 +134,7 @@ def watched_subreddit(request):
                 if WatchedSubreddit.objects.filter(user=request.user).count() > 9:
                     return render(request, 'error.html', {'error': 'Each account can only have up to ten watched '
                                                                    'subreddits'})
-                if WatchedSubreddit.objects.filter(name=subreddit_name).exists():
+                if WatchedSubreddit.objects.filter(user=request.user, name=subreddit_name).exists():
                     return render(request, 'error.html', {'error': 'You are already watching this subreddit'})
                 if subreddit_exists(subreddit_name):
                     current_time = timezone.now()
@@ -171,7 +171,7 @@ def watched_user(request):
                 if WatchedUser.objects.filter(user=request.user).count() > 4:
                     return render(request, 'error.html', {'error': 'Each account can only have up to five watched '
                                                                    'users'})
-                if WatchedUser.objects.filter(watched_username=username).exists():
+                if WatchedUser.objects.filter(user=request.user, watched_username=username).exists():
                     return render(request, 'error.html', {'error': 'You are already watching this user'})
                 if user_exists(username):
                     current_time = timezone.now()
