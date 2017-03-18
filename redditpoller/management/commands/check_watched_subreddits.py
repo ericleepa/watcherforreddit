@@ -13,7 +13,7 @@ class Command(BaseCommand):
         notifications_sent = 0
         for subreddit in watched_subreddits:
             current_time = timezone.now()
-            if current_time - timedelta(hours=0) < subreddit.last_checked_date:
+            if current_time - timedelta(hours=subreddit.watch_interval) < subreddit.last_checked_date:
                 pass
             else:
                 subreddit.last_checked_date = current_time
