@@ -27,7 +27,7 @@ class Command(BaseCommand):
                                           '(http://www.reddit.com'.format(thread.title))
                     thread.delete()
                     break
-                if thread.self_text != praw_thread.self_text:
+                if thread.self_text != praw_thread.selftext:
                     notify_user(username, 'The author of thread "{}" has changed the submission text.'
                                           ' You can view the post [here](https://reddit.com/{})'
                                 .format(thread.title, thread.url))
