@@ -58,5 +58,5 @@ class Command(BaseCommand):
                                 .format(new_thread_count, subreddit.name,
                                         subreddit.name, formatted_thread_titles))
                     notifications_sent += 1
-        return 'check_watched_subreddits run. {} threads checked and {} notifications sent'\
+        return 'check_watched_subreddits run. {} subreddits checked and {} notifications sent'\
             .format(subreddit_count, notifications_sent)
