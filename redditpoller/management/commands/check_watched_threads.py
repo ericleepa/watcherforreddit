@@ -21,13 +21,13 @@ class Command(BaseCommand):
                 thread.save()
                 praw_thread = get_reddit_thread('https://reddit.com' + thread.url)
                 username = thread.user.username
-                if thread.archived != praw_thread['thread_archived']:
+                if thread.archived != praw_thread.archived:
                     notify_user(username, 'The thread {} has been archived'
                                           'If you would like to watch another thread go [here.]'
                                           '(http://www.reddit.com'.format(thread.title))
                     thread.delete()
                     break
-                if thread.self_text != praw_thread['thread_self_text']:
+                if thread.self_text != praw_thread.self_text:
                     notify_user(username, 'The author of thread "{}" has changed the submission text.'
                                           ' You can view the post [here](https://reddit.com/{})'
                                 .format(thread.title, thread.url))
@@ -41,17 +41,17 @@ class Command(BaseCommand):
                     thread.delete()
                     break
                 linked_comments = WatchedComment.objects.filter(parent_thread=thread)
-                new_comments = get_reddit_comments_from_thread(praw_thread['thread'])
+                new_comments = get_reddit_comments_from_thread(praw_thread)
                 new_comment_count = 0
                 comment_list = []
                 for comment in new_comments:
-                    if linked_comments.filter(url=comment['comment_permalink']).exists():
+                    if linked_comments.filter(url=comment.permalink(fast=True)).exists():
                         pass
                     else:
-                        c = WatchedComment(parent_thread=thread, url=comment['comment_permalink'],
-                                           text=comment['comment_body'])
+                        c = WatchedComment(parent_thread=thread, url=comment.permalink(fast=True),
+                                           text=comment.body)
                         c.save()
-                        comment_list.append([comment['comment_body'], comment['comment_permalink']])
+                        comment_list.append([comment.body, comment.permalink(fast=True)])
                         new_comment_count += 1
                 if new_comment_count == 0:
                     pass
