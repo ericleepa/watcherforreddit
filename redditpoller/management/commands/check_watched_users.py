@@ -78,5 +78,5 @@ class Command(BaseCommand):
                                 .format(new_comment_count, new_thread_count, user.watched_username,
                                         user.watched_username, all_formatted))
                     notifications_sent += 1
-            return 'check_watched_users run. {} users checked and {} notifications sent' \
+        return 'check_watched_users run. {} users checked and {} notifications sent' \
                 .format(user_count, notifications_sent)
