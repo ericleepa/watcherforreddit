@@ -7,7 +7,7 @@ You'll receive a notification in your reddit inbox any time that something you a
 
 
 
-#### Visit the site  - https://www.watcherforreddit.com
+#### Visit the site  - https://watcherforreddit.com
 
 ###### Example notification:
 
