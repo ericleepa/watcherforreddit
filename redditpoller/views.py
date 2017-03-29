@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.models import User
 from django.core.management import call_command
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from redditpoller.forms import WatchThread, WatchSubreddit, WatchUser
@@ -44,9 +44,9 @@ def callback(request):
                 login(request, user)
             return redirect('/')
         else:
-            return render(request, 'error.html', {'error': 'invalid request'})
+            return HttpResponseBadRequest('invalid request')
     else:
-        return render(request, 'error.html', {'error': 'You need to authorize your reddit account to use this site'})
+        return HttpResponseBadRequest('invalid request')
 
 
 def logout_view(request):
@@ -115,6 +115,8 @@ def watched_thread(request):
                     return render(request, 'watched.html', {'success_text': success_text})
             except Exception as e:
                 return render(request, 'error.html', {'error': e})
+    else:
+        return HttpResponseBadRequest('invalid request')
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -153,6 +155,8 @@ def watched_subreddit(request):
                     return render(request, 'error.html', {'error': 'This subreddit does not exist'})
             except Exception as e:
                 return render(request, 'error.html', {'error': e})
+    else:
+        return HttpResponseBadRequest('invalid request')
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -194,6 +198,8 @@ def watched_user(request):
                     return render(request, 'error.html', {'error': 'This user does not exist'})
             except Exception as e:
                 return render(request, 'error.html', {'error': e})
+        else:
+            return HttpResponseBadRequest('invalid request')
 
 
 @user_passes_test(lambda u: u.is_superuser)
